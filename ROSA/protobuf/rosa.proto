@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+package ROSA;
+
+service ROSASSE
+{
+  rpc SetupORAM(SetupParam) returns (Stat);
+  rpc ORAMBackup(BackParam) returns (Stat);
+  rpc ORAMLoad(BackParam) returns (Stat);
+  rpc ORAMGet(ORAMBlockNo) returns (stream ORAMBlock);
+  rpc ORAMPut(stream ORAMBlock) returns (Stat);
+  rpc SetupRosa(SetupParam) returns (Stat);
+  rpc RosaAddCipher(RosaCipher) returns (Stat);
+  rpc RosaSearch(RosaToken) returns (Stat);
+  rpc RosaBackup(BackParam) returns (Stat);
+  rpc RosaLoad(BackParam) returns (Stat);
+  rpc GetStor(GetStorParam) returns (SrvStor);
+}
+
+message SetupParam
+{
+}
+
+message Stat
+{
+  int32 stat = 1;
+}
+
+message BackParam
+{
+  string name = 1;
+}
+
+message ORAMBlockNo
+{
+  repeated int32 no = 1;
+}
+
+message ORAMBlock
+{
+  int32 no = 1;
+  bytes data = 2;
+}
+
+message RosaCipher
+{
+  bytes label = 1;
+  repeated bytes cip = 2;
+}
+
+message RosaToken
+{
+  bytes Ks = 1;
+  int32 cnt_srch = 2;
+  int32 cnt_upd = 3;
+  bytes L_cache = 4;
+  repeated GGMNode nodes = 5;
+}
+
+message GGMNode
+{
+  int32 index = 1;
+  int32 level = 2;
+  bytes key = 3;
+}
+
+message GetStorParam
+{
+
+}
+
+message SrvStor
+{
+  int32 CDB_stor = 1;
+  int32 Cache_stor = 2;
+  int32 OMAP_stor = 3;
+}

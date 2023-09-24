@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package AURA;
+
+service AURASSE
+{
+  rpc SetupAura(SetupParam) returns (Stat);
+  rpc AuraAddCipher(AuraCipher) returns (Stat);
+  rpc AuraSearch(AuraToken) returns (Stat);
+  rpc AuraBackup(BackParam) returns (Stat);
+  rpc AuraLoad(BackParam) returns (Stat);
+  rpc GetStor(GetStorParam) returns (SrvStor);
+}
+
+message SetupParam
+{
+}
+
+message Stat
+{
+  int32 stat = 1;
+}
+
+message BackParam
+{
+  string name = 1;
+}
+
+message AuraCipher
+{
+  bytes label = 1;
+  bytes tag = 2;
+  repeated bytes cip = 3;
+}
+
+message AuraToken
+{
+  bytes trapdoor = 1;
+  bytes cache_token = 2;
+  repeated GGMNode nodes = 3;
+}
+
+message GGMNode
+{
+  int32 index = 1;
+  int32 level = 2;
+  bytes key = 3;
+}
+
+message GetStorParam
+{
+
+}
+
+message SrvStor
+{
+  int32 EDB_stor = 1;
+  int32 Cache_stor = 2;
+}

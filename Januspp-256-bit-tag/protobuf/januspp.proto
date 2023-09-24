@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+package JANUSPP;
+
+service JANUSPPSSE
+{
+  rpc Setup(SetupParam) returns (Stat);
+  rpc Add(AddCipher) returns (Stat);
+  rpc Delete(DelCipher) returns (Stat);
+  rpc Search(Trapdoor) returns (Stat);
+  rpc Backup(BackParam) returns (Stat);
+  rpc Load(BackParam) returns (Stat);
+  rpc GetStor(GetStorParam) returns (SrvStor);
+}
+
+message SetupParam
+{
+}
+
+message Stat
+{
+  int32 stat = 1;
+}
+
+message BackParam
+{
+  string name = 1;
+}
+
+message AddCipher
+{
+  bytes label = 1;
+  bytes cipher = 2;
+  bytes tag_data = 3;
+}
+
+message Path
+{
+    bytes path_data = 1;
+    bytes mask = 2;
+}
+
+message PuncturedKey
+{
+  int32 type = 1;
+  repeated bytes keydata = 2;
+  repeated Path tag_prefix = 3;
+}
+
+message DelCipher
+{
+  bytes label = 1;
+  PuncturedKey key = 2;
+  bytes tag_data = 3;
+}
+
+message ConstrainedKeyData
+{
+  bytes key_data = 1;
+  int32 level = 2;
+  uint32 path = 3;
+}
+
+message ConstrainedKey
+{
+    uint32 current_permitted = 1;
+    uint32 max_permitted = 2;
+    repeated ConstrainedKeyData permitted_keys = 3;
+}
+
+message Trapdoor
+{
+  bytes msk_out = 1;
+  bytes tkn = 2;
+  ConstrainedKey trpd = 3;
+  bytes kw1 = 4;
+  ConstrainedKey trpd_del = 5;
+  bytes kw1_del = 6;
+}
+
+message GetStorParam
+{
+
+}
+
+message SrvStor
+{
+  int32 srv_stor = 1;
+  int32 srv_del_stor = 2;
+  int32 oldres_stor = 3;
+}

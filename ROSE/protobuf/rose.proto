@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package ROSE;
+
+service ROSESSE
+{
+  rpc Setup(SetupParam) returns (Stat);
+  rpc Update(Cipher) returns (Stat);
+  rpc Search(Trapdoor) returns (stream Fw);
+  rpc SearchRetId(stream FileId) returns (Stat);
+  rpc Backup(BackParam) returns (Stat);
+  rpc Load(BackParam) returns (Stat);
+  rpc GetStor(GetStorParam) returns (SrvStor);
+}
+
+message SetupParam
+{
+}
+
+message Stat
+{
+  int32 stat = 1;
+}
+
+message BackParam
+{
+  string name = 1;
+}
+
+message Cipher
+{
+  bytes L = 1;
+  bytes R = 2;
+  bytes D = 3;
+  bytes C = 4;
+}
+
+message Trapdoor
+{
+  bytes tpd_L = 1;
+  bytes tpd_T = 2;
+  bytes cip_L = 3;
+  bytes cip_R = 4;
+  bytes cip_D = 5;
+  bytes cip_C = 6;
+}
+
+message Fw
+{
+  bytes cip = 1;
+}
+
+message FileId
+{
+  string file_id = 1;
+}
+message GetStorParam
+{
+
+}
+
+message SrvStor
+{
+  int32 srv_stor = 1;
+}

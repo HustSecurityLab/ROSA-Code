@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package MITRA;
+
+service MITRASSE
+{
+  rpc Setup(SetupParam) returns (Stat);
+  rpc Update(Cipher) returns (Stat);
+  rpc Search(stream Tokens) returns (stream Fw);
+  rpc SearchRetId(stream FileId) returns (Stat);
+  rpc Backup(BackParam) returns (Stat);
+  rpc Load(BackParam) returns (Stat);
+  rpc GetStor(GetStorParam) returns (SrvStor);
+}
+
+message SetupParam
+{
+}
+
+message Stat
+{
+  int32 stat = 1;
+}
+
+message BackParam
+{
+  string name = 1;
+}
+
+message Cipher
+{
+  bytes label = 1;
+  bytes cipher = 2;
+}
+
+message Tokens
+{
+  bytes label = 1;
+}
+
+message Fw
+{
+  bytes cip = 1;
+}
+message FileId
+{
+  string file_id = 1;
+}
+message GetStorParam
+{
+
+}
+
+message SrvStor
+{
+  int32 srv_stor = 1;
+}
